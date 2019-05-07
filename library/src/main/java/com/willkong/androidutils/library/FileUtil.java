@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  * Created by Willkong on 2016/9/7
@@ -105,4 +106,30 @@ public class FileUtil {
         return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "TB";
     }
 
+
+    private static final int GB = 1024 * 1024 * 1024;
+    private static final int MB = 1024 * 1024;
+    private static final int KB = 1024;
+    private static final int BYTE2GB = 1;
+    private static final int BYTE2MB = 2;
+    private static final int BYTE2KB = 3;
+
+    public static String getFileSize(long size, int type) {
+        DecimalFormat df = new DecimalFormat("0.00");
+        String resultSize = "";
+        switch (type) {
+            case BYTE2GB:
+                resultSize = df.format(size / (float) GB).replace(",", ".") + "GB";
+                break;
+            case BYTE2MB:
+                resultSize = df.format(size / (float) MB).replace(",", ".") + "MB";
+                break;
+            case BYTE2KB:
+                resultSize = df.format(size / (float) KB).replace(",", ".") + "KB";
+                break;
+            default:
+                break;
+        }
+        return resultSize;
+    }
 }
