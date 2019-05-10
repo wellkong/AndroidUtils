@@ -173,4 +173,66 @@ public class TimeUtil {
         }
         return unixTimestamp;
     }
+
+    /**
+     * 字符串转换成时间戳
+     * @param dateString 2018-11-07 13:42:03,
+     * @param pattern yyyy-MM-dd HH:mm:ss
+     * @return 1541569323000
+     */
+    public static long getString2Date(String dateString,String pattern) {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+        Date date = new Date();
+        try {
+            date = dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date.getTime();
+    }
+
+    /**
+     * 时间戳转换成星期
+     * @param time
+     * @return
+     */
+    public static String getWeek(long time) {
+
+        Calendar cd = Calendar.getInstance();
+        cd.setTime(new Date(time));
+
+        int year  = cd.get(Calendar.YEAR); //获取年份
+        int month = cd.get(Calendar.MONTH); //获取月份
+        int day   = cd.get(Calendar.DAY_OF_MONTH); //获取日期
+        int week  = cd.get(Calendar.DAY_OF_WEEK); //获取星期
+
+        String weekString;
+        switch (week) {
+            case Calendar.SUNDAY:
+                weekString = "周日";
+                break;
+            case Calendar.MONDAY:
+                weekString = "周一";
+                break;
+            case Calendar.TUESDAY:
+                weekString = "周二";
+                break;
+            case Calendar.WEDNESDAY:
+                weekString = "周三";
+                break;
+            case Calendar.THURSDAY:
+                weekString = "周四";
+                break;
+            case Calendar.FRIDAY:
+                weekString = "周五";
+                break;
+            default:
+                weekString = "周六";
+                break;
+
+        }
+
+        return weekString;
+    }
 }
